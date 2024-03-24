@@ -12,12 +12,12 @@ new version [(WebDriver Google Chrome)](https://chromedriver.chromium.org/downlo
 ## 1. Installing JDK version 17
 The `JDK` is a full-featured development kit. A set of software for `Java`, including `JRE`, compilers and tools (such as `JavaDoc` and `Java Debugger`), which exists for creating and compiling program. If you want, just run the `Java` program in your browser or computer, it will be enough for you installed `JRE`. But if you plan to program if you are using `Java`, you will also need the `JDK`.
 
-* Download Java Platform JDK 17 from the official website
+* Download `Java Platform JDK 17` from the official website
     ```
     https://www.oracle.com/java/technologies/downloads/
     ```
 
-* Install java with default settings
+* Install `java` with default settings
 * Set the variable `“Java home”`
     * If the machine is `Windows`, press `Win+R` and type-those `sysdm.cpl` go to the advanced tab/Environment Variables.
     * Create a variable: `JAVA_HOME`.
@@ -57,19 +57,19 @@ Chrome`. To install, open the website:
 ```bash
 https://googlechromelabs.github.io/chrome-for-testing/
 ```
-and download that ChromeDriver version that matches your version your browser.
+and download that `ChromeDriver` version that matches your `version` your `browser`.
 
-To find out your browser version, open a new window in `Chrome`, in the search bar type:
+To find out your `browser version`, open a new window in `Chrome`, in the search bar type:
 ```bash
 chrome://version/
 ```
-and press `Enter`. In the top line you will see information information about the browser version
+and press `Enter`. In the top line you will see information information about the `browser version`.
 
 Unzip the downloaded file. Create on disk `C:` `webdrivers` folder and put the unzipped folder place the file `chromedriver.exe` in the `C:\webdrivers` folder.
 
-Add the `C:\` folder to the system `PATH` variable webdrivers.
+Add the `C:\` folder to the system `PATH` variable `webdrivers`.
 ## 5. Selenium Server Standalone
-Launch server performed one chosen in the command line (calling the windows command line is is done by typing the `cmd` command in the search):
+Launch server performed one chosen in the command line (calling the `windows` `command line` is is done by typing the `cmd` command in the search):
 ```bash
 cd ..
 ```
