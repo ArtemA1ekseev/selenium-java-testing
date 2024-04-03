@@ -13,7 +13,7 @@ public class WebDriverDemo2 {
 
         WebDriver driver = new ChromeDriver(); //creating object for chrome driver
 
-        // 1. По id
+
         driver.get("http://www.urn.su/ui/basic_test/"); //opens the browser and navigates to the URL
 
         WebElement searchField =
