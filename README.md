@@ -99,3 +99,64 @@ cd ..
       java -Dwebdriver.chrome.driver="C:\chromedriver\chromedriver.exe" -jar C:\selenium-server-standalone-3.141.59.jar -role node -hub http://192.168.99.1:4444/grid/register/
       ```
     * Check the current state of our selenium hub, and also see which nodes are ready to work and which browsers are available in them, you can go to the browser line to the address where selenium hub is running. In our case it is `http://192.168.99.1:4444/` and from there we go to the selenium grid hub console. In the console we see that there is currently one node connected to the hub. When node starts, it can't determine which browsers are available and therefore use a standard configuration consisting of `5 chrome browsers`, `5 firefox` and `1 IE`.
+
+#  1. Selenium + Java
+## 1.1 Connect Selenium to IntelliJ project
+
+Go to 
+
+    https://www.selenium.dev/downloads/
+
+Find `Java` among the available languages ​​and click on `Download`
+
+![image](https://github.com/ArtemA1ekseev/selenium-java-testing/assets/113195869/efe013f2-f986-4f4b-9816-c0a448fe56fb)
+
+Unpack the `archive`. The content will be something like this:
+
+![image](https://github.com/ArtemA1ekseev/selenium-java-testing/assets/113195869/d7aa20b8-87cf-4fe1-bb61-0faa51f76d25)
+
+Open your project in `IntelliJ` and click `File → Project Structure`
+Select `Modules`, then click on the plus on the right and select `1. JARs or directories…`
+
+![image](https://github.com/ArtemA1ekseev/selenium-java-testing/assets/113195869/d96b75ce-e6f3-41a3-a1f1-afd549d21a39)
+
+Go to the folder where you just extracted the archive and select all the `.jar` files from the root and from the `libs` subfolder
+
+Click `OK`
+
+![image](https://github.com/ArtemA1ekseev/selenium-java-testing/assets/113195869/749ba53c-a49f-45ee-9510-29876a37c937)
+
+## 1.2 Connect browser driver
+
+No matter what `programming language` you write the `code` in, the operation of connecting the `browser driver` is approximately the same.
+
+You can read about this in the article [Connecting the browser driver in Selenium](https://testsetup.ru/selenium/#driver)
+
+## 1.3 Simple test
+
+To make sure `Selenium` is connected successfully, paste the following code and compile it.
+
+```java
+package org.test;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class WebDriverDemo1 {
+    public static void main(String[] args) {
+
+        System.setProperty("webdriver.chrome.driver", "C:\\chromedriver\\chromedriver.exe"); //setting the path for chrome driver
+
+        WebDriver driver = new ChromeDriver(); //creating object for chrome driver
+
+        driver.get("https://www.selenium.dev/selenium/web/web-form.html"); //opens the browser and navigates to the URL
+        
+
+    }
+}
+```
+If you do not want or cannot edit the `PATH` variable, try registering the path to the driver - insert before the line `WebDriver driver = ...`
+
+```java
+driver.get("https://www.selenium.dev/selenium/web/web-form.html"); //opens the browser and navigates to the URL
+```
