@@ -160,3 +160,83 @@ If you do not want or cannot edit the `PATH` variable, try registering the path 
 ```java
 driver.get("https://www.selenium.dev/selenium/web/web-form.html"); //opens the browser and navigates to the URL
 ```
+
+#  2. Search for elements
+## 2.1 Simple test
+
+First of all, you need to connect `By` in `Java`, this is done as follows:
+
+```java
+import org.openqa.selenium.By;
+```
+
+Often it is not enough to simply find an element. To perform some actions on what you find, connect `WebElement`
+
+```java
+import org.openqa.selenium.WebElement;
+```
+
+## 2.2 Filling out a simple form
+
+Let's use the most reliable method - by `id`. After examining the source code of the page you will see the following code
+
+```html
+<input type="text" id="name1" name="url1">
+```
+
+Therefore, the required id is `name1`
+
+```java
+package org.test;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class WebDriverDemo2 {
+
+    public static void main(String[] args) {
+
+        System.setProperty("webdriver.chrome.driver", "C:\\chromedriver\\chromedriver.exe"); //setting the path for chrome driver
+
+        WebDriver driver = new ChromeDriver(); //creating object for chrome driver
+
+
+        driver.get("http://www.urn.su/ui/basic_test/"); //opens the browser and navigates to the URL
+
+        WebElement searchField =
+                driver.findElement(By.id("name1"));
+
+        searchField.sendKeys("topbicycle.ru");
+        searchField.submit();
+    }
+```
+## 2.3 Click on the link - search by text
+
+Using `linkText`, find all links with the text `Renovation`, select the first one and click on it.
+
+```java
+package org.test;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class WebDriverDemo3 {
+
+    public static void main(String[] args) {
+
+        System.setProperty("webdriver.chrome.driver", "C:\\chromedriver\\chromedriver.exe"); //setting the path for chrome driver
+
+        WebDriver driver = new ChromeDriver(); //creating object for chrome driver
+
+        driver.get("http://www.urn.su/ui/basic_test/"); //opens the browser and navigates to the URL
+
+        WebElement renovationLink =
+                driver.findElements(By.linkText("Renovation")).get(0);
+        renovationLink.click();
+    }
+}
+```
