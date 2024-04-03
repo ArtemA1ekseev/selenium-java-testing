@@ -298,3 +298,202 @@ public class WebDriverDemo5 {
     }
 }
 ```
+#  3. Switches
+
+You need to find it on the page www.urn.su/IT/selenium/basic_test/ switch and put it in the `Lannister` position
+
+As a check, output the contents to the `terminal`.
+
+I used the `list`, so I imported the `import java.util.List`;
+
+```java
+package org.test;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+import java.util.List;
+
+public class WebDriverDemo6 {
+    public static void main(String[] args) {
+
+        System.setProperty("webdriver.chrome.driver", "C:\\chromedriver\\chromedriver.exe"); //setting the path for chrome driver
+
+        WebDriver driver = new ChromeDriver(); //creating object for chrome driver
+
+        driver.get("http://www.urn.su/ui/basic_test/"); //opens the browser and navigates to the URL
+
+        List<WebElement> radioButtons =
+                driver.findElements(By.name("house"));
+        radioButtons.get(1).click();
+
+        for (WebElement radioButton : radioButtons) {
+
+            if (radioButton.isSelected()) {
+                System.out.println(radioButton.getAttribute("value"));
+            }
+        }
+    }
+}
+```
+#  4. Checkboxes
+
+You need to find it on the page www.urn.su/ui/basic_test/ `checkboxes` and mark `Cersei`
+
+After studying the page code, you can understand that the desired element has an `id`, so it is very easy to find it.
+
+```java
+package org.test;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class WebDriverDemo7 {
+
+    public static void main(String[] args) {
+
+        System.setProperty("webdriver.chrome.driver", "C:\\chromedriver\\chromedriver.exe"); //setting the path for chrome driver
+
+        WebDriver driver = new ChromeDriver(); //creating object for chrome driver
+
+        driver.get("http://www.urn.su/ui/basic_test/"); //opens the browser and navigates to the URL
+
+        WebElement checkbox =
+                driver.findElement(By.id("cerseiId"));
+        checkbox.click();
+    }
+}
+```
+
+#  5. Drop-down lists
+
+You need to find it on the page www.urn.su/ui/basic_test/ checkboxes and select `Dawn`
+
+I will use `Select`, so I need to pre-connect `import org.openqa.selenium.support.ui.Select`;
+
+```java
+package org.test;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.Select;
+
+public class WebDriverDemo8 {
+
+    public static void main(String[] args) {
+
+        System.setProperty("webdriver.chrome.driver", "C:\\chromedriver\\chromedriver.exe"); //setting the path for chrome driver
+
+        WebDriver driver = new ChromeDriver(); //creating object for chrome driver
+
+        driver.get("http://www.urn.su/ui/basic_test/"); //opens the browser and navigates to the URL
+
+        WebElement selectElement =
+                driver.findElement(By.id("swords"));
+        Select select = new Select(selectElement);
+        select.selectByVisibleText("Dawn");
+    }
+}
+```
+#  6. Tables
+
+You need to find it on the page www.urn.su/ui/basic_test/ table. An internal table is nested in the external table. You need to get to the element in the third row of the nested table. To check, we will output the contents of this element to the terminal.
+
+Pay attention to lines 14, 15 and 16. First, the driver finds the external table, then I no longer call driver, but search only in the external table, and then only in the internal table.
+
+```java
+package org.test;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class WebDriverDemo9 {
+
+    public static void main(String[] args) {
+
+        System.setProperty("webdriver.chrome.driver", "C:\\chromedriver\\chromedriver.exe"); //setting the path for chrome driver
+
+        WebDriver driver = new ChromeDriver(); //creating object for chrome driver
+
+        driver.get("http://www.urn.su/ui/basic_test/"); //opens the browser and navigates to the URL
+
+        WebElement outerTable =
+                driver.findElement(By.tagName("table"));
+        WebElement innerTable =
+                outerTable.findElement(By.tagName("table"));
+        WebElement row =
+                innerTable.findElements(By.tagName("td")).get(2);
+        System.out.println(row.getText());
+    }
+}
+```
+#  7. Wait for the element to appear
+
+The elements can be loaded onto the page at different speeds. To save yourself from unnecessary headaches, you need to make the most of Selenium's capabilities
+
+In the following example, you can visit the site search page `urn.su` wait for the `Yandex` script to load, insert the word java into the search, just to be safe, wait for the Find button to load and `click` on it.
+
+```java
+package org.test;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import static org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated;
+
+public class WebDriverDemo10 {
+
+    public static void main(String[] args) {
+
+        System.setProperty("webdriver.chrome.driver", "C:\\chromedriver\\chromedriver.exe"); //setting the path for chrome driver
+
+        WebDriver driver = new ChromeDriver(); //creating object for chrome driver
+
+        // explicit wait
+        WebDriverWait wait = new WebDriverWait(driver, 50);
+
+        driver.get("http://www.urn.su/search.php"); //opens the browser and navigates to the URL
+
+        try {
+            WebElement yandexField =
+                    wait.until(presenceOfElementLocated(By.name("text")));
+            yandexField.sendKeys("java");
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        try {
+            WebElement yButton =
+                    wait.until(presenceOfElementLocated(By.className("ya-site-form__submit")));
+            yButton.click();
+        }
+
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+}
+```
+#  7.1 Implicit expectation
+
+The timeout set using Implicit Wait is a global setting for `WebDriver`. Every time you need to find an item on a page, `WebDriver` will search either until it finds it or until that time has passed.
+
+Every `500 ms`, WebDriver will access the `DOM` for the presence of the desired element.
+
+#  7.2 Explicit Wait
+
+Explicit waiting in `Selenium` is used to tell the `web driver` to wait for certain conditions `(Expected Conditions)` or exceed the maximum time before throwing an `“ElementNotVisibleException"` exception. This is an intelligent kind of `expectation`, but it can only be applied to the specified elements. This provides better features than implicit expectation, as it waits for dynamically loaded `Ajax` elements.
+
+Once we declare an explicit expectation, we have to use `“ExpectedConditions” `or we can configure how often we want to check the condition using Fluent Wait. Nowadays, we use Thread for `implementation.Sleep()` is generally not recommended to use.
