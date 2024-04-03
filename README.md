@@ -240,3 +240,33 @@ public class WebDriverDemo3 {
     }
 }
 ```
+## 2.4 Click on the link - search by CSS selector
+
+All links in this example also have the same text - `Italy`. But we can't use the same technique, so let's study the page code and find out that the desired link has a `march8` class
+
+We will look for a link, that is, cssSelector `a`, with the `march8` class
+
+```java
+package org.test;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class WebDriverDemo4 {
+
+    public static void main(String[] args) {
+
+        System.setProperty("webdriver.chrome.driver", "C:\\chromedriver\\chromedriver.exe"); //setting the path for chrome driver
+
+        WebDriver driver = new ChromeDriver(); //creating object for chrome driver
+
+        driver.get("http://www.urn.su/ui/basic_test/"); //opens the browser and navigates to the URL
+
+        WebElement march8Link =
+                driver.findElements(By.cssSelector("a[class=march8]")).get(0);
+        march8Link.click();
+    }
+}
+```
